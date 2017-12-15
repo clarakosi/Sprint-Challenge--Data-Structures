@@ -5,6 +5,8 @@ class LimitedArray {
     // Use the getter and setter methods included in this class to manipulate data in this class
     this.storage = [];
     this.limit = limit;
+    // this.head = null;
+    // this.tail = null;
   }
 
   checkLimit(index) {
@@ -32,6 +34,47 @@ class LimitedArray {
   set(index, value) {
     this.checkLimit(index);
     this.storage[index] = value;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+  }
+
+  addToTail(key, value) {
+    const newNode = {
+      next: null,
+      value,
+    };
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    }
+    this.tail.next = newNode;
+    this.tail = newNode;
+  }
+  removeHead() {
+    if (this.head === null) return;
+    if (this.head.next === null) {
+      const head = this.head.next;
+      this.head = null;
+      this.tail = null;
+      return head;
+    }
+    const head = this.head.value;
+    this.head = this.head.next;
+    return head;
+  }
+  constains(value) {
+    if (this.head === null) return false;
+    const searchLinkedList = (node) => {
+      if (node.value === value) return true;
+      if (node.next === null) return false;
+      return searchLinkedList(node.next);
+    };
+    return searchLinkedList(this.head);
   }
 }
 /* eslint-disable no-bitwise, operator-assignment */
